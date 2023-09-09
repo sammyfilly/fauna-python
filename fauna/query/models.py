@@ -238,7 +238,7 @@ class Document(BaseDocument):
     if not isinstance(ts, datetime):
       raise TypeError(f"'ts' should be of type datetime, but was {type(ts)}")
 
-    if not (isinstance(coll, str) or isinstance(coll, Module)):
+    if not (isinstance(coll, (str, Module))):
       raise TypeError(
           f"'coll' should be of type Module or str, but was {type(coll)}")
 
@@ -301,7 +301,7 @@ class NamedDocument(BaseDocument):
     if not isinstance(ts, datetime):
       raise TypeError(f"'ts' should be of type datetime, but was {type(ts)}")
 
-    if not (isinstance(coll, str) or isinstance(coll, Module)):
+    if not (isinstance(coll, (str, Module))):
       raise TypeError(
           f"'coll' should be of type Module or str, but was {type(coll)}")
 

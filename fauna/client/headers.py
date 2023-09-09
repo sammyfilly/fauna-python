@@ -30,7 +30,7 @@ class _Auth:
   """Creates an auth helper object"""
 
   def bearer(self):
-    return "Bearer {}".format(self.secret)
+    return f"Bearer {self.secret}"
 
   def __init__(self, secret):
     self.secret = secret

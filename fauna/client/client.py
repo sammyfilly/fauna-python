@@ -104,7 +104,7 @@ class Client:
 
     self._query_tags = {}
     if query_tags is not None:
-      self._query_tags.update(query_tags)
+      self._query_tags |= query_tags
 
     if query_timeout is not None:
       self._query_timeout_ms = int(query_timeout.total_seconds() * 1000)
@@ -126,7 +126,7 @@ class Client:
 
     if max_contention_retries is not None and max_contention_retries > 0:
       self._headers[Header.MaxContentionRetries] = \
-          f"{max_contention_retries}"
+            f"{max_contention_retries}"
 
     if additional_headers is not None:
       self._headers = {
@@ -307,14 +307,14 @@ class Client:
 
     query_tags = {}
     if self._query_tags is not None:
-      query_tags.update(self._query_tags)
+      query_tags |= self._query_tags
 
     if opts is not None:
       if opts.linearized is not None:
         headers[Header.Linearized] = str(opts.linearized).lower()
       if opts.max_contention_retries is not None:
         headers[Header.MaxContentionRetries] = \
-            f"{opts.max_contention_retries}"
+              f"{opts.max_contention_retries}"
       if opts.traceparent is not None:
         headers[Header.Traceparent] = opts.traceparent
       if opts.query_timeout is not None:
@@ -327,7 +327,7 @@ class Client:
       if opts.additional_headers is not None:
         headers.update(opts.additional_headers)
 
-    if len(query_tags) > 0:
+    if query_tags:
       headers[Header.Tags] = QueryTags.encode(query_tags)
 
     data: dict[str, Any] = {
@@ -644,5 +644,4 @@ class QueryIterator:
         """
 
     for page in self.iter():
-      for item in page:
-        yield item
+      yield from page
