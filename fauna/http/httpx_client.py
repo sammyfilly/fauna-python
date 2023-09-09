@@ -14,10 +14,7 @@ class HTTPXResponse(HTTPResponse):
     self._r = response
 
   def headers(self) -> Mapping[str, str]:
-    h = {}
-    for (k, v) in self._r.headers.items():
-      h[k] = v
-    return h
+    return dict(self._r.headers.items())
 
   def json(self) -> Any:
     try:
@@ -82,11 +79,10 @@ class HTTPXClient(HTTPClient):
       request: httpx.Request,
   ) -> httpx.Response:
     try:
-      response = self._c.send(
+      return self._c.send(
           request,
           stream=False,
       )
-      return response
     except httpx.TransportError as e:
       if retryCount == 0:
         raise e

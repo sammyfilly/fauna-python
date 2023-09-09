@@ -7,7 +7,7 @@ from fauna.client.headers import Header
 
 
 def _fancy_bool_from_str(val: str) -> bool:
-  return val.lower() in ["1", "true", "yes", "y"]
+  return val.lower() in {"1", "true", "yes", "y"}
 
 
 class LastTxnTs(object):
@@ -31,9 +31,7 @@ class LastTxnTs(object):
     """Produces a dictionary with a non-zero `X-Last-Seen-Txn` header; or,
         if one has not yet been set, the empty header dictionary."""
     t = self._time
-    if t is None:
-      return {}
-    return {Header.LastTxnTs: str(t)}
+    return {} if t is None else {Header.LastTxnTs: str(t)}
 
   def update_txn_time(self, new_txn_time: int):
     """Updates the internal transaction time.

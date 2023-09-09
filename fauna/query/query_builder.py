@@ -68,11 +68,7 @@ class Query:
     return self._fragments
 
   def __str__(self) -> str:
-    res = ""
-    for f in self._fragments:
-      res += str(f.get())
-
-    return res
+    return "".join(str(f.get()) for f in self._fragments)
 
 
 def fql(query: str, **kwargs: Any) -> Query:

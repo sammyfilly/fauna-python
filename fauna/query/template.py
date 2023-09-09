@@ -66,14 +66,12 @@ class FaunaTemplate:
 
   def _handle_invalid(self, mo: Match) -> None:
     i = mo.start("invalid")
-    lines = self._template[:i].splitlines(keepends=True)
-
-    if not lines:
-      colno = 1
-      lineno = 1
-    else:
+    if lines := self._template[:i].splitlines(keepends=True):
       colno = i - len(''.join(lines[:-1]))
       lineno = len(lines)
 
+    else:
+      colno = 1
+      lineno = 1
     raise ValueError(
         f"Invalid placeholder in template: line {lineno}, col {colno}")

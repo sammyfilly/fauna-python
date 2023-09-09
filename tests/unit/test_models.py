@@ -22,10 +22,7 @@ def test_page_equality():
 
 def test_page_iterator():
   page = Page(data=[1, 2])
-  res = 0
-
-  for val in page:
-    res += val
+  res = sum(page)
   assert res == 3
 
 

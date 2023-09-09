@@ -14,7 +14,7 @@ def test_query_smoke_test(subtests, client):
   with subtests.test(msg="valid query"):
     res = client.query(fql("Math.abs(-5.123e3)"))
 
-    assert res.data == float(5123.0)
+    assert res.data == 5123.0
     assert res.stats.compute_ops > 0
     assert res.traceparent != ""
     assert res.summary == ""
